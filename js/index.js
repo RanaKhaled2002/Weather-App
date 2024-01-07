@@ -4,8 +4,8 @@ const days = ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Satur
 const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
 let currentDay;
 let cartona="";
-let lat="";
-let lan="";
+let lat;
+let lan;
 let afterday;
 let finalDay;
 
@@ -14,7 +14,8 @@ let finalDay;
 // get api
 async function api(countryName)
 {
-    
+    console.log(lan)
+    console.log(lat)
     let x = await fetch(`https://api.weatherapi.com/v1/forecast.json?key=5d00b4d2a3604150927120437240201&q=${countryName}&days=3&lat=${lat}&lan=${lan}`)
     let y =await x.json();
     displayWeather(y);
@@ -28,8 +29,8 @@ function displayWeather(a)
     cartona = `<div class="col-lg-4">
                     <div class="bg-content rounded-4 text-white">
                         <div class="d-flex justify-content-between bg-header px-3 py-1">
-                            <h3>${days[currentDay?.getDate()]}</h3>
-                            <h4>${currentDay?.getDay()} January</h4>
+                            <h3>${days[currentDay?.getDay()]}</h3>
+                            <h4>${currentDay?.getDate()} January</h4>
                         </div>
                         <h3 class="p-3">${a?.location?.name}</h3>
                         <div class="d-flex justify-content-between p-3">
@@ -88,12 +89,13 @@ function getLocation()
 {
     if (navigator.geolocation) 
     {
-      navigator.geolocation.getCurrentPosition(showPosition);
+        navigator.geolocation.getCurrentPosition(showPosition)
     } 
     else 
     { 
-      alert("Geolocation is not supported by this browser.");
+        alert("Geolocation is not supported by this browser.");
     }
+
 }
 
 // show position
@@ -111,5 +113,6 @@ search.addEventListener("change",function(){
     search.value = ""
 })
 
-getLocation();
-api("cairo");
+getLocation()
+api("cairo")
+
