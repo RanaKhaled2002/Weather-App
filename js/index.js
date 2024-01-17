@@ -80,6 +80,8 @@ function displayWeather(a)
     }
 }
 
+api("cairo");
+
 // get location
 
 if (navigator.geolocation) 
@@ -105,5 +107,3 @@ search.addEventListener("change",function(){
     api(search.value);
     search.value = ""
 })
-
-api("cairo");
