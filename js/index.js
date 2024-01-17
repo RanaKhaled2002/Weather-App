@@ -1,22 +1,18 @@
 let search = document.querySelector("#searchId");
-let Weather = document.querySelector(".row")
+let Weather = document.querySelector(".row");
 const days = ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"];
 const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
 let currentDay;
 let cartona="";
-let lat;
-let lan;
 let afterday;
 let finalDay;
 
 // ====================== Function ======================
-
+    
 // get api
 async function api(countryName)
 {
-    console.log(lan)
-    console.log(lat)
-    let x = await fetch(`https://api.weatherapi.com/v1/forecast.json?key=5d00b4d2a3604150927120437240201&q=${countryName}&days=3&lat=${lat}&lan=${lan}`)
+    let x = await fetch(`https://api.weatherapi.com/v1/forecast.json?key=5d00b4d2a3604150927120437240201&q=${countryName}&days=3`)
     let y =await x.json();
     displayWeather(y);
 }
@@ -85,24 +81,21 @@ function displayWeather(a)
 }
 
 // get location
-function getLocation() 
-{
-    if (navigator.geolocation) 
-    {
-        navigator.geolocation.getCurrentPosition(showPosition)
-    } 
-    else 
-    { 
-        alert("Geolocation is not supported by this browser.");
-    }
 
+if (navigator.geolocation) 
+{
+    navigator.geolocation.getCurrentPosition(showPosition)
+} 
+else 
+{ 
+    alert("Geolocation is not supported by this browser.");
 }
 
 // show position
 function showPosition(position) 
 {
-    lat = position.coords.latitude;
-    lan = position.coords.longitude;
+    console.log(position)
+    api(position.coords.latitude+","+position.coords.longitude);
 }
 // ====================== Events & Actions ======================
 
@@ -113,6 +106,4 @@ search.addEventListener("change",function(){
     search.value = ""
 })
 
-getLocation()
-api("cairo")
-
+api("cairo");
